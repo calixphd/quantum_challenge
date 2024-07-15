@@ -1,3 +1,4 @@
+!pip install qiskit qiskit-aer matplotlib pylatexenc
 import streamlit as st
 import numpy as np
 from qiskit import QuantumCircuit, transpile
