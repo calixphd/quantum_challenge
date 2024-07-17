@@ -158,14 +158,21 @@ class QuantumChallengeApp:
         return fig
 
 def main():
-    st.title('Quantum Challenge')
-
+    st.markdown(
+        """
+        <h1 style='text-align: center;'>Quantum Challenge</h1>
+        """,
+        unsafe_allow_html=True
+    )
     if "app_instance" not in st.session_state:
         st.session_state.app_instance = QuantumChallengeApp()
     app = st.session_state.app_instance
 
     header_placeholder = st.empty()  # Placeholder for the header
-    header_placeholder.write(app.instructions[app.current_level])
+     header_placeholder.markdown(
+        f"<h3 style='font-weight: bold;'>{app.instructions[app.current_level]}</h3>",
+        unsafe_allow_html=True
+    )
 
     cols = st.columns(2)
 
