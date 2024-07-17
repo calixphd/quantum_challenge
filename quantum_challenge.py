@@ -185,7 +185,9 @@ def main():
         
 
         if app.check_solution():
-            st.success("Congratulations! You've completed the level.")
+            st.success("Congratulations! You've completed the level. Play the Next Level")
+            app.next_level()
+            header_placeholder.write(app.instructions[app.current_level])
         else:
             st.error("The solution is not correct. Please try again.")
 
@@ -195,10 +197,10 @@ def main():
         cols[1].pyplot(app.plot_statevector())
 
     if st.button('Next Level'):
-        app.next_level()
-        header_placeholder.write(app.instructions[app.current_level])
-        cols[0].pyplot(app.draw_circuit())
-        cols[1].pyplot(app.plot_statevector())
+        # app.next_level()
+        # header_placeholder.write(app.instructions[app.current_level])
+        # cols[0].pyplot(app.draw_circuit())
+        # cols[1].pyplot(app.plot_statevector())
 
     # Plot initial statevector probabilities
     if st.session_state.get('first_plot', True):
