@@ -54,6 +54,7 @@ class QuantumChallengeApp:
 
     def refresh_game(self):
         self.current_level==1
+        self.init_circuit()
         
 
     def next_level(self):
