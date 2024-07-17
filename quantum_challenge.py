@@ -204,8 +204,8 @@ def main():
         cols[1].pyplot(app.plot_statevector())
 
         # Refresh game
-    if st.button('Refresh game'):
-        app.refresh_game()
+    # if st.button('Refresh game'):
+    #     app.refresh_game()
         
     if st.button('Next Level'):
         st.error("You can only see the Next Level if you pass curent level!")
