@@ -60,6 +60,9 @@ class QuantumChallengeApp:
         self.current_level += 1
         if self.current_level > 3:
             st.info("You are an Advanced Quantum user! You have Reached the end of the game!!")
+            cols[0].empty()
+            cols[1].empty()
+            st.image("winner.png")
             self.current_level = 3  # Keep the level at 3 as it is the highest
         else:
             self.reset_circuit()
@@ -193,7 +196,7 @@ def main():
         if app.check_solution():
             st.success("Congratulations! You've completed the level. Play the Next Level")
             app.next_level()
-            if app.current_level > 3:
+            if app.current_level >= 3:
                 st.info("You are an advanced quantum user!")
                 # Clear the columns and display the image
                 cols[0].empty()
