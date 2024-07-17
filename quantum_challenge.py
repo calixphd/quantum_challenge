@@ -195,7 +195,7 @@ def main():
                 st.info("You are an Advanced Quantum user! You have Reached the end of the game!!")
                 cols[0].empty()
                 cols[1].empty()
-                st.image("/mnt/data/image.png")
+                st.image("winner.png")
             else:
                 header_placeholder.markdown(
                     f"<h3 style='font-weight: bold;'>{app.instructions[app.current_level]}</h3>",
