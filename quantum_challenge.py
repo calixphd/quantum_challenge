@@ -52,10 +52,15 @@ class QuantumChallengeApp:
         self.init_circuit()
         self.applied_gates = []
 
+    def refresh_game(self):
+        self.current_level==1
+        
+
     def next_level(self):
         self.current_level += 1
         if self.current_level > 3:
-            self.current_level = 1
+            # self.current_level = 1
+            pint("Your an Advanced Quantum user!")
         self.reset_circuit()
 
     def check_solution(self):
