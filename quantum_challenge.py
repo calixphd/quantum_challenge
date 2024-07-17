@@ -169,7 +169,7 @@ def main():
     app = st.session_state.app_instance
 
     header_placeholder = st.empty()  # Placeholder for the header
-     header_placeholder.markdown(
+    header_placeholder.markdown(
         f"<h3 style='font-weight: bold;'>{app.instructions[app.current_level]}</h3>",
         unsafe_allow_html=True
     )
