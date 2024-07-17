@@ -60,9 +60,10 @@ class QuantumChallengeApp:
     def next_level(self):
         self.current_level += 1
         if self.current_level > 3:
-            # self.current_level = 1
-            pint("Your an Advanced Quantum user!")
-        self.reset_circuit()
+            st.info("You are already an Advanced Quantum user!")
+            self.current_level = 3  # Keep the level at 3 as it is the highest
+        else:
+            self.reset_circuit()
 
     def check_solution(self):
         print("checking results... please wait")
@@ -202,17 +203,14 @@ def main():
         cols[0].pyplot(app.draw_circuit())
         cols[1].pyplot(app.plot_statevector())
 
-        # Refresh game
-    # if st.button('Refresh game'):
-    #     app.refresh_game()
-        
+        #TODO Refresh game
+    def refresh_game(self):
+        self.current_level = 1  # Correctly assign level 1
+        self.reset_circuit()  # Reset the circuit to the initial state
+
     if st.button('Next Level'):
         st.error("You can only see the Next Level if you pass curent level!")
-        # app.next_level()
-        # header_placeholder.write(app.instructions[app.current_level])
-        # cols[0].pyplot(app.draw_circuit())
-        # cols[1].pyplot(app.plot_statevector())
-
+    
     # Plot initial statevector probabilities
     if st.session_state.get('first_plot', True):
         cols[0].pyplot(app.draw_circuit())
