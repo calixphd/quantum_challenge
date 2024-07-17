@@ -62,7 +62,7 @@ class QuantumChallengeApp:
         if self.current_level > 3:
             # self.current_level = 1
             pint("Your an Advanced Quantum user!")
-        # self.reset_circuit()
+        self.reset_circuit()
 
     def check_solution(self):
         print("checking results... please wait")
@@ -193,7 +193,6 @@ def main():
         if app.check_solution():
             st.success("Congratulations! You've completed the level. Play the Next Level")
             app.next_level()
-            st.success("Congratulations! You've completed the level. Play the Next Level")
             header_placeholder.write(app.instructions[app.current_level])
         else:
             st.error("The solution is not correct. Please try again.")
