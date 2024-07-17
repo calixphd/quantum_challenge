@@ -203,10 +203,10 @@ def main():
 
         # Refresh game
     if st.button('Refresh game'):
-        app.next_level()
+        app.efresh_game()
         
     if st.button('Next Level'):
-        print("You can only see the Next Level if you pass curent level!")
+        st.error("You can only see the Next Level if you pass curent level!")
         # app.next_level()
         # header_placeholder.write(app.instructions[app.current_level])
         # cols[0].pyplot(app.draw_circuit())
