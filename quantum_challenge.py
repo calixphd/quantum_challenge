@@ -201,7 +201,7 @@ def main():
                     f"<h3 style='font-weight: bold;'>{app.instructions[app.current_level]}</h3>",
                     unsafe_allow_html=True
                 )
-        else:
+    else:
             st.error("The solution is not correct. Please try again.")        
 
     if st.button('Reset'):
