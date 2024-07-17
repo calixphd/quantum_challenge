@@ -196,11 +196,6 @@ def main():
                 cols[0].empty()
                 cols[1].empty()
                 st.image("winner.png")
-            else:
-                header_placeholder.markdown(
-                    f"<h3 style='font-weight: bold;'>{app.instructions[app.current_level]}</h3>",
-                    unsafe_allow_html=True
-                )
     else:
             st.error("The solution is not correct. Please try again.")        
 
