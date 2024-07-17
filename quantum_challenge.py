@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 class QuantumChallengeApp:
     def __init__(self):
         self.instructions = {
-            1: "Level 1: Transform the qubit from |0⟩ to |1⟩.",
-            2: "Level 2: Create a superposition state.",
-            3: "Level 3: Create a Bell state: |00⟩ + |11⟩.",
+            1: "Level 1: Transform the qubit from |0⟩ to |1⟩ with a single gate.",
+            2: "Level 2: Create a superposition state of |0⟩ & |1⟩ with a single gate.",
+            3: "Level 3: Create a Bell state: |00⟩ + |11⟩ with two gates.",
         }
         self.current_level = 1
         self.selected_gate = "X"
@@ -53,10 +53,9 @@ class QuantumChallengeApp:
         self.applied_gates = []
 
     def refresh_game(self):
-        self.current_level==1
+        self.current_level=1
         self.init_circuit()
         
-
     def next_level(self):
         self.current_level += 1
         if self.current_level > 3:
@@ -203,13 +202,11 @@ def main():
         cols[0].pyplot(app.draw_circuit())
         cols[1].pyplot(app.plot_statevector())
 
-        #TODO Refresh game
-    def refresh_game(self):
-        self.current_level = 1  # Correctly assign level 1
-        self.reset_circuit()  # Reset the circuit to the initial state
+    if st.button("Refresh Game"):
+        app.refresh_game()
 
-    if st.button('Next Level'):
-        st.error("You can only see the Next Level if you pass curent level!")
+    # if st.button('Next Level'):
+    #     st.error("You can only see the Next Level if you pass curent level!")
     
     # Plot initial statevector probabilities
     if st.session_state.get('first_plot', True):
