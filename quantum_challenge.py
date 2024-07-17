@@ -196,7 +196,7 @@ def main():
         if app.check_solution():
             st.success("Congratulations! You've completed the level. Play the Next Level")
             app.next_level()
-            if app.current_level >= 3:
+            if app.current_level > 3:
                 st.info("You are an advanced quantum user!")
                 # Clear the columns and display the image
                 cols[0].empty()
