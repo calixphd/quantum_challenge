@@ -196,7 +196,7 @@ def main():
         cols[0].pyplot(app.draw_circuit())
         cols[1].pyplot(app.plot_statevector())
 
-    if st.button('Next Level'):
+    # if st.button('Next Level'):
         # app.next_level()
         # header_placeholder.write(app.instructions[app.current_level])
         # cols[0].pyplot(app.draw_circuit())
