@@ -63,7 +63,7 @@ class QuantumChallengeApp:
             cols[0].empty()
             cols[1].empty()
             st.image("winner.png")
-            self.current_level = 3  # Keep the level at 3 as it is the highest
+            # self.current_level = 3  # Keep the level at 3 as it is the highest
         else:
             self.reset_circuit()
 
