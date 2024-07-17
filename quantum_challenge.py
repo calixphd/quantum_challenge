@@ -56,15 +56,13 @@ class QuantumChallengeApp:
         self.current_level=1
         self.init_circuit()
         
-    def next_level(self, cols, image_path):
+    def next_level(self):
         self.current_level += 1
         if self.current_level > 3:
-            st.info("You are an Advanced Quantum user! You have Reached the end of the game!!")
-            cols[0].empty()
-            cols[1].empty()
-            st.image(image_path)
+            return True
         else:
             self.reset_circuit()
+            return False
 
     def check_solution(self):
         print("checking results... please wait")
@@ -192,12 +190,19 @@ def main():
         cols[0].pyplot(app.draw_circuit())
         
     if app.check_solution():
-        st.success("Congratulations! You've completed the level. Play the Next Level")
-        app.next_level(cols, "winner.png")
-        if app.current_level <= 3:
-            header_placeholder.write(app.instructions[app.current_level])
-    else:
-        st.error("The solution is not correct. Please try again.")           
+            st.success("Congratulations! You've completed the level. Play the Next Level")
+            if app.next_level():
+                st.info("You are an Advanced Quantum user! You have Reached the end of the game!!")
+                cols[0].empty()
+                cols[1].empty()
+                st.image("/mnt/data/image.png")
+            else:
+                header_placeholder.markdown(
+                    f"<h3 style='font-weight: bold;'>{app.instructions[app.current_level]}</h3>",
+                    unsafe_allow_html=True
+                )
+        else:
+            st.error("The solution is not correct. Please try again.")        
 
     if st.button('Reset'):
         app.reset_circuit()
