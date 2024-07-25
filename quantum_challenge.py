@@ -1,13 +1,16 @@
-
 import streamlit as st
 import numpy as np
 from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer, AerSimulator
+from qiskit_aer import AerSimulator
 from qiskit.visualization import circuit_drawer
 import matplotlib.pyplot as plt
 
+# Define the main application class
 class QuantumChallengeApp:
     def __init__(self):
+        """
+        Initialize the Quantum Challenge application with predefined levels and instructions.
+        """
         self.instructions = {
             1: "Level 1: Transform the qubit from |0⟩ to |1⟩ with a single gate.",
             2: "Level 2: Create a superposition state of |0⟩ & |1⟩ with a single gate.",
@@ -16,11 +19,16 @@ class QuantumChallengeApp:
         self.current_level = 1
         self.selected_gate = "X"
         self.applied_gates = []  # List to track applied gates
-
         self.circuit = QuantumCircuit(1)
         self.states = ['0', '1'] if self.current_level < 3 else ['00', '01', '10', '11']
 
     def apply_gate(self, gate):
+        """
+        Apply a selected gate to the quantum circuit.
+        
+        Parameters:
+        gate (str): The gate to be applied ('X', 'H', 'CNOT').
+        """
         if not hasattr(self, 'circuit') or self.circuit is None:
             self.init_circuit()
         
@@ -40,6 +48,9 @@ class QuantumChallengeApp:
         self.applied_gates.append(gate)
 
     def init_circuit(self):
+        """
+        Initialize the quantum circuit based on the current level.
+        """
         if self.current_level < 3:
             self.circuit = QuantumCircuit(1)
         else:
@@ -49,14 +60,26 @@ class QuantumChallengeApp:
         self.selected_qubit = 0
 
     def reset_circuit(self):
+        """
+        Reset the quantum circuit to its initial state.
+        """
         self.init_circuit()
         self.applied_gates = []
 
     def refresh_game(self):
-        self.current_level=1
+        """
+        Reset the game to level 1.
+        """
+        self.current_level = 1
         self.init_circuit()
         
     def next_level(self):
+        """
+        Proceed to the next level in the game.
+        
+        Returns:
+        bool: True if the last level is completed, otherwise False.
+        """
         self.current_level += 1
         if self.current_level > 3:
             return True
@@ -65,6 +88,12 @@ class QuantumChallengeApp:
             return False
 
     def check_solution(self):
+        """
+        Check if the applied gates result in the correct quantum state for the current level.
+        
+        Returns:
+        bool: True if the solution is correct, otherwise False.
+        """
         print("checking results... please wait")
         self.circuit.save_statevector()
         simulated_circuit = self.circuit
@@ -103,6 +132,12 @@ class QuantumChallengeApp:
         return np.allclose(state_probabilities, target_probabilities, atol=1e-2)
 
     def draw_circuit(self):
+        """
+        Draw the quantum circuit with the applied gates.
+        
+        Returns:
+        matplotlib.figure.Figure: The figure of the drawn quantum circuit.
+        """
         print("inside draw circuit")
         print(self.applied_gates)
         simulated_circuit = self.circuit
@@ -119,10 +154,15 @@ class QuantumChallengeApp:
                     simulated_circuit.h(self.selected_qubit)
                 elif gate == "CNOT":
                     simulated_circuit.cx(0, 1)
-        # simulated_circuit.data.clear()
         return circuit_drawer(simulated_circuit, output='mpl')
 
     def plot_statevector(self):
+        """
+        Plot the statevector probabilities of the quantum circuit.
+        
+        Returns:
+        matplotlib.figure.Figure: The figure of the statevector probabilities.
+        """
         print("About to plot")
         self.init_circuit()
         print("see self.circuit above")
@@ -164,6 +204,9 @@ class QuantumChallengeApp:
         return fig
 
 def main():
+    """
+    The main function to run the Streamlit application.
+    """
     st.markdown(
         """
         <h1 style='text-align: center;'>Quantum Challenge</h1>
@@ -190,14 +233,14 @@ def main():
         cols[0].pyplot(app.draw_circuit())
         
     if app.check_solution():
-            st.success("Congratulations! You've completed the level. Play the Next Level")
-            if app.next_level():
-                st.info("You are an Advanced Quantum user! You have Reached the end of the game!!")
-                cols[0].empty()
-                cols[1].empty()
-                st.image("winner.png")
+        st.success("Congratulations! You've completed the level. Play the Next Level")
+        if app.next_level():
+            st.info("You are an Advanced Quantum user! You have Reached the end of the game!!")
+            cols[0].empty()
+            cols[1].empty()
+            st.image("winner.png")
     else:
-            st.error("The solution is not correct. Please try again.")        
+        st.error("The solution is not correct. Please try again.")        
 
     if st.button('Reset'):
         app.reset_circuit()
@@ -207,10 +250,6 @@ def main():
     if st.button("Refresh Game"):
         app.refresh_game()
 
-    # if st.button('Next Level'):
-    #     st.error("You can only see the Next Level if you pass curent level!")
-    
-    # Plot initial statevector probabilities
     if st.session_state.get('first_plot', True):
         cols[0].pyplot(app.draw_circuit())
         cols[1].pyplot(app.plot_statevector())
